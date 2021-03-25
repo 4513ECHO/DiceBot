@@ -63,16 +63,3 @@ def p_error(p):
     print("Syntax error in input")
 
 yacc.yacc()
-
-def main():
-    while True:
-        try:
-            data = input("[DiceBot]> ")
-        except EOFError:
-            break
-        result = yacc.parse(data)
-        print("  [%s] -> " % data + str(result))
-
-if __name__ == '__main__':
-    main()
-
