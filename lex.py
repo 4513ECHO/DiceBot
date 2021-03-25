@@ -1,5 +1,5 @@
 import ply.lex as lex
-#
+
 tokens = (
     'NAME',
     'NUMBER',
