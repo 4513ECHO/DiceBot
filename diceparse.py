@@ -1,6 +1,6 @@
 import ply.yacc as yacc
-import random
 from dicelex import tokens
+import random
 
 precedence = (
     ('left', 'PLUS', 'MINUS'),
@@ -14,6 +14,10 @@ names = {}
 def p_statement_assign(p):
     """statement : NAME EQUALS expression"""
     names[p[1]] = p[3]
+
+def p_statement_expr(p):
+    """statement : expression"""
+    p[0] = p[1]
 
 def p_expression_binop(p):
     """expression : expression PLUS expression
@@ -47,27 +51,28 @@ def p_expression_number(p):
     """expression : NUMBER"""
     p[0] = p[1]
 
-def p_expression_string(p):
-    """expression : STRING"""
-    p[0] = p[1]
-
 def p_expression_name(p):
     """expression : NAME"""
     try:
         p[0] = names[p[1]]
     except LookupError:
-        print("Undefined name '%s'" % p[1])
+        print("Undefined name \"%s\"" % p)
         p[0] = 0
-
-def p_statement_expr(p):
-    """statement : expression"""
-    p[0] = p[1]
 
 def p_error(p):
     print("Syntax error in input")
-    print(p)
 
-parser = yacc.yacc()
+yacc.yacc()
 
-def dicebot(data, debug=0):
-    return yacc.parse(data, debug=debug)
+def main():
+    while True:
+        try:
+            data = input("[DiceBot]> ")
+        except EOFError:
+            break
+        result = yacc.parse(data)
+        print("  [%s] -> " % data + str(result))
+
+if __name__ == '__main__':
+    main()
+
