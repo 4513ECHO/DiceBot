@@ -63,3 +63,6 @@ def p_error(p):
     print("Syntax error in input")
 
 yacc.yacc()
+
+def parse(data, debug=0):
+    return yacc.parse(data, debug=debug)
