@@ -1,8 +1,8 @@
 import ply.lex as lex
 
 tokens = (
+    'NAME',
     'NUMBER',
-    'STRING',
     'PLUS',
     'MINUS',
     'TIMES',
@@ -10,8 +10,7 @@ tokens = (
     'EQUALS',
     'LPAREN',
     'RPAREN',
-    'NAME',
-    'DICE'
+    'DICE',
 )
 
 t_PLUS = r'\+'
@@ -21,15 +20,10 @@ t_DIVIDE = r'/'
 t_EQUALS = r'='
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
-t_DICE = r'(D|d)'
+t_DICE = r'D|d'
 
 t_ignore = ' \t'
 t_ignore_COMMENT = r'\#.*'
-
-def t_STRING(t):
-    r"""(\"|\').*(\"|\')"""
-    t.value = str(t.value)[1:-1]
-    return t
 
 def t_NUMBER(t):
     r'\d+'
@@ -37,7 +31,7 @@ def t_NUMBER(t):
     return t
 
 def t_NAME(t):
-    r"""^[a-zA-Z^(D|d)_]\w*"""
+    r'^[a-zA-Z][a-zA-Z0-9]*'
     return t
 
 def t_newline(t):
@@ -48,5 +42,19 @@ def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(t)
 
+lexer = lex.lex()
 
-lex.lex(debug=0)
+data =  '''
+ 3 + 4 * 10
+(2 + 5)/ 3
+2 D 4 + 1
+'''
+
+lexer.input(data)
+
+if __name__ == '__main__':
+    while True:
+        tok = lexer.token()
+        if not tok:
+            break
+        print(tok)
