@@ -1,9 +1,12 @@
-import diceparse
+import yacc
 
-if __name__ == '__main__':
+def main():
     while True:
         try:
-            i = input('[DiceBot]> ')
+            data = input("[DiceBot]> ")
         except EOFError:
             break
-        print(diceparse.dicebot(i))
+        result = yacc.parse(data)
+        print("  [%s] -> " % data + str(result))
+
+main()
