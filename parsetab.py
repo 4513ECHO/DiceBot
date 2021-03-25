@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'leftPLUSMINUSleftTIMESDIVIDErightUMINUSleftDICEDICE DIVIDE EQUALS LPAREN MINUS NAME NUMBER PLUS RPAREN STRING TIMESstatement : NAME EQUALS expressionexpression : expression PLUS expression\n                  | expression MINUS expression\n                  | expression TIMES expression\n                  | expression DIVIDE expression\n                  | expression DICE expressionexpression : MINUS expression %prec UMINUSexpression : LPAREN expression RPARENexpression : NUMBERexpression : STRINGexpression : NAMEstatement : expression'
+_lr_signature = 'leftPLUSMINUSleftTIMESDIVIDErightUMINUSrightDICE DICE DIVIDE EQUALS LPAREN MINUS NAME NUMBER PLUS RPAREN TIMESstatement : NAME EQUALS expressionstatement : expressionexpression : expression PLUS expression\n                  | expression MINUS expression\n                  | expression TIMES expression\n                  | expression DIVIDE expression\n                  | expression DICE expressionexpression : MINUS expression %prec UMINUSexpression : LPAREN expression RPARENexpression : NUMBERexpression : NAME'
     
-_lr_action_items = {'$end':([2,3,5,6,7,8,15,17,18,19,20,21,22,23,],[0,-12,-11,-9,-10,-11,-7,-8,-5,-3,-2,-6,-4,-1,]),'DICE':([3,5,6,7,8,9,15,17,18,19,20,21,22,23,],[13,-11,-9,-10,-11,13,13,-8,13,13,13,-6,13,13,]),'DIVIDE':([3,5,6,7,8,9,15,17,18,19,20,21,22,23,],[10,-11,-9,-10,-11,10,-7,-8,-5,10,10,-6,-4,10,]),'LPAREN':([0,1,4,10,11,12,13,14,16,],[1,1,1,1,1,1,1,1,1,]),'EQUALS':([5,],[16,]),'NUMBER':([0,1,4,10,11,12,13,14,16,],[6,6,6,6,6,6,6,6,6,]),'MINUS':([0,1,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,],[4,4,11,4,-11,-9,-10,-11,11,4,4,4,4,4,-7,4,-8,-5,-3,-2,-6,-4,11,]),'NAME':([0,1,4,10,11,12,13,14,16,],[5,8,8,8,8,8,8,8,8,]),'PLUS':([3,5,6,7,8,9,15,17,18,19,20,21,22,23,],[12,-11,-9,-10,-11,12,-7,-8,-5,-3,-2,-6,-4,12,]),'RPAREN':([6,7,8,9,15,17,18,19,20,21,22,],[-9,-10,-11,17,-7,-8,-5,-3,-2,-6,-4,]),'TIMES':([3,5,6,7,8,9,15,17,18,19,20,21,22,23,],[14,-11,-9,-10,-11,14,-7,-8,-5,14,14,-6,-4,14,]),'STRING':([0,1,4,10,11,12,13,14,16,],[7,7,7,7,7,7,7,7,7,]),}
+_lr_action_items = {'EQUALS':([3,],[9,]),'TIMES':([3,5,6,7,8,10,16,17,18,19,20,21,22,],[-11,-10,12,-11,-8,12,12,-9,-6,-5,12,12,-7,]),'PLUS':([3,5,6,7,8,10,16,17,18,19,20,21,22,],[-11,-10,14,-11,-8,14,14,-9,-6,-5,-4,-3,-7,]),'NAME':([0,2,4,9,11,12,13,14,15,],[3,7,7,7,7,7,7,7,7,]),'DIVIDE':([3,5,6,7,8,10,16,17,18,19,20,21,22,],[-11,-10,11,-11,-8,11,11,-9,-6,-5,11,11,-7,]),'LPAREN':([0,2,4,9,11,12,13,14,15,],[4,4,4,4,4,4,4,4,4,]),'MINUS':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,],[2,2,-11,2,-10,13,-11,-8,2,13,2,2,2,2,2,13,-9,-6,-5,-4,-3,-7,]),'NUMBER':([0,2,4,9,11,12,13,14,15,],[5,5,5,5,5,5,5,5,5,]),'$end':([1,3,5,6,7,8,16,17,18,19,20,21,22,],[0,-11,-10,-2,-11,-8,-1,-9,-6,-5,-4,-3,-7,]),'RPAREN':([5,7,8,10,17,18,19,20,21,22,],[-10,-11,-8,17,-9,-6,-5,-4,-3,-7,]),'DICE':([3,5,6,7,8,10,16,17,18,19,20,21,22,],[-11,-10,15,-11,15,15,15,-9,15,15,15,15,15,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'expression':([0,1,4,10,11,12,13,14,16,],[3,9,15,18,19,20,21,22,23,]),'statement':([0,],[2,]),}
+_lr_goto_items = {'statement':([0,],[1,]),'expression':([0,2,4,9,11,12,13,14,15,],[6,8,10,16,18,19,20,21,22,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,16 +27,15 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> statement","S'",1,None,None,None),
-  ('statement -> NAME EQUALS expression','statement',3,'p_statement_assign','diceparse.py',15),
-  ('expression -> expression PLUS expression','expression',3,'p_expression_binop','diceparse.py',19),
-  ('expression -> expression MINUS expression','expression',3,'p_expression_binop','diceparse.py',20),
-  ('expression -> expression TIMES expression','expression',3,'p_expression_binop','diceparse.py',21),
-  ('expression -> expression DIVIDE expression','expression',3,'p_expression_binop','diceparse.py',22),
-  ('expression -> expression DICE expression','expression',3,'p_expression_binop','diceparse.py',23),
-  ('expression -> MINUS expression','expression',2,'p_expression_uminus','diceparse.py',39),
-  ('expression -> LPAREN expression RPAREN','expression',3,'p_expression_group','diceparse.py',43),
-  ('expression -> NUMBER','expression',1,'p_expression_number','diceparse.py',47),
-  ('expression -> STRING','expression',1,'p_expression_string','diceparse.py',51),
-  ('expression -> NAME','expression',1,'p_expression_name','diceparse.py',55),
-  ('statement -> expression','statement',1,'p_statement_expr','diceparse.py',63),
+  ('statement -> NAME EQUALS expression','statement',3,'p_statement_assign','yacc.py',15),
+  ('statement -> expression','statement',1,'p_statement_expr','yacc.py',19),
+  ('expression -> expression PLUS expression','expression',3,'p_expression_binop','yacc.py',23),
+  ('expression -> expression MINUS expression','expression',3,'p_expression_binop','yacc.py',24),
+  ('expression -> expression TIMES expression','expression',3,'p_expression_binop','yacc.py',25),
+  ('expression -> expression DIVIDE expression','expression',3,'p_expression_binop','yacc.py',26),
+  ('expression -> expression DICE expression','expression',3,'p_expression_binop','yacc.py',27),
+  ('expression -> MINUS expression','expression',2,'p_expression_uminus','yacc.py',43),
+  ('expression -> LPAREN expression RPAREN','expression',3,'p_expression_group','yacc.py',47),
+  ('expression -> NUMBER','expression',1,'p_expression_number','yacc.py',51),
+  ('expression -> NAME','expression',1,'p_expression_name','yacc.py',55),
 ]
