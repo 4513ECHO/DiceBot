@@ -4,7 +4,7 @@
  
 　[【Python】PLYを使ってダイスボットをつくる](https://qiita.com/4513echo/items/92b242c0995df3216d86)でコードを解説しています。
  
- `parsetab.py`と`parse.out`はプログラムを実行したときに生成されるものです。
+ `parsetab.py`と`parse.out`がプログラムの実行時に生成されます。
 
 
 
